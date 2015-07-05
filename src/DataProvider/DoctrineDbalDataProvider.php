@@ -1,10 +1,10 @@
 <?php
 
-namespace Navius\Adapter;
+namespace Navius\DataProvider;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
-class DoctrineDbalAdapter implements DataAdapterInterface
+class DoctrineDbalDataProvider implements DataProviderInterface
 {
     /** @var QueryBuilder */
     private $queryBuilder;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Navius\Adapter;
+namespace Navius\DataProvider;
 
-interface DataAdapterInterface
+interface DataProviderInterface
 {
     /**
      * @param int $offset

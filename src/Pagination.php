@@ -2,12 +2,12 @@
 
 namespace Navius;
 
-use Navius\Adapter\DataAdapterInterface;
+use Navius\DataProvider\DataProviderInterface;
 
 class Pagination implements \Countable, \IteratorAggregate
 {
-    /** @var DataAdapterInterface */
-    private $adapter;
+    /** @var DataProviderInterface */
+    private $dataProvider;
 
     /** @var int */
     private $currentPage;
@@ -22,11 +22,11 @@ class Pagination implements \Countable, \IteratorAggregate
     private $normalizeOutOfRangePages;
 
     /**
-     * @param DataAdapterInterface $adapter
+     * @param DataProviderInterface $dataProvider
      */
-    public function __construct($adapter)
+    public function __construct($dataProvider)
     {
-        $this->adapter = $adapter;
+        $this->dataProvider = $dataProvider;
 
         $this->currentPage = 1;
         $this->pageSize = 10;
@@ -35,11 +35,11 @@ class Pagination implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @return DataAdapterInterface
+     * @return DataProviderInterface
      */
-    public function getAdapter()
+    public function getDataProvider()
     {
-        return $this->adapter;
+        return $this->dataProvider;
     }
 
     /**
@@ -135,7 +135,7 @@ class Pagination implements \Countable, \IteratorAggregate
         if($this->currentPageData === null){
             $limit = $this->pageSize;
             $offset = ($this->currentPage - 1) * $limit;
-            $this->currentPageData = $this->adapter->getDataSlice($offset, $limit);
+            $this->currentPageData = $this->dataProvider->getDataSlice($offset, $limit);
         }
         return $this->currentPageData;
     }
@@ -146,7 +146,7 @@ class Pagination implements \Countable, \IteratorAggregate
     public function getDataRowCount()
     {
         if($this->dataRowsCount === null){
-            $this->dataRowsCount = $this->adapter->getDataRowsCount();
+            $this->dataRowsCount = $this->dataProvider->getDataRowsCount();
         }
         return $this->dataRowsCount;
     }

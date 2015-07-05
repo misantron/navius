@@ -1,8 +1,8 @@
 <?php
 
-namespace Navius\Adapter;
+namespace Navius\DataProvider;
 
-class ArrayAdapter implements DataAdapterInterface
+class ArrayDataProvider implements DataProviderInterface
 {
     /** @var array */
     private $data;
