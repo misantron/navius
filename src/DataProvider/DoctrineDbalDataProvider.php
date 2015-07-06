@@ -50,9 +50,10 @@ class DoctrineDbalDataProvider implements DataProviderInterface
             call_user_func($this->queryBuilderCountModifyCallback, $queryBuilder);
         } else {
             $queryBuilder
+                ->resetQueryPart('select')
                 ->select('COUNT(1)')
-                ->setMaxResults(1)
                 ->resetQueryPart('orderBy')
+                ->resetQueryPart('groupBy')
             ;
         }
         return (int) $queryBuilder->execute()->fetchColumn();
