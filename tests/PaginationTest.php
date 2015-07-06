@@ -27,4 +27,36 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(10, $this->pagination->getPageSize());
         $this->assertFalse($this->pagination->getNormalizeOutOfRangePages());
     }
+
+    public function testGetDataProvider()
+    {
+        $this->assertSame($this->dataProvider, $this->pagination->getDataProvider());
+    }
+
+    public function testNormalizeOutOfRangePages()
+    {
+        $this->pagination->setNormalizeOutOfRangePages(true);
+        $this->assertTrue($this->pagination->getNormalizeOutOfRangePages());
+    }
+
+    public function testSetCurrentPage()
+    {
+        try {
+            $this->pagination->setCurrentPage(0);
+            $this->fail('Expected exception not thrown');
+        } catch(\InvalidArgumentException $e){
+            $this->assertInstanceOf('\\InvalidArgumentException', $e);
+        }
+        try {
+            $this->pagination->setCurrentPage(-1);
+            $this->fail('Expected exception not thrown');
+        } catch(\InvalidArgumentException $e){
+            $this->assertInstanceOf('\\InvalidArgumentException', $e);
+        }
+    }
+
+    public function testGetCurrentPage()
+    {
+        $this->assertEquals(1, $this->pagination->getCurrentPage());
+    }
 }
